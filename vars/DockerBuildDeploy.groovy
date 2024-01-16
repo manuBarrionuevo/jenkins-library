@@ -14,8 +14,6 @@ def pushDockerImage(imageName, version, directory) {
     """
 }
 
-// DockerBuildDeploy.groovy
-
 def dockerLogin(registryUrl) {
     withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
         withDockerRegistry([url: registryUrl]) {
@@ -24,8 +22,6 @@ def dockerLogin(registryUrl) {
     }
     return false
 }
-
-// validate dir
 
 def validateDirectories(directoryList) {
     directoryList.each { directory ->
