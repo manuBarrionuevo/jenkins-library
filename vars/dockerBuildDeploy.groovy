@@ -31,4 +31,4 @@ dockerBuildDeploy.validateDirectories = { directoryList ->
     }
 }
 
-return dockerBuildDeploy  
+return dockerBuildDeploy
