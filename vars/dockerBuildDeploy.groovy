@@ -23,7 +23,7 @@ dockerBuildDeploy.dockerLogin = { registryUrl ->
     return false
 }
 
-def validateDirectories = { directoryList ->
+dockerBuildDeploy.validateDirectories = { directoryList ->
     directoryList.each { directory ->
         if (!fileExists(directory)) {
             error "El directorio '${directory}' no existe."
