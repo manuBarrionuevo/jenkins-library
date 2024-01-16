@@ -1,5 +1,3 @@
-// DockerBuildDeploy.groovy
-
 def dockerBuildDeploy = [:]
 
 dockerBuildDeploy.buildDockerImage = { imageName, version, directory ->
@@ -25,7 +23,7 @@ dockerBuildDeploy.dockerLogin = { registryUrl ->
     return false
 }
 
-dockerBuildDeploy.validateDirectories = { directoryList ->
+def validateDirectories = { directoryList ->
     directoryList.each { directory ->
         if (!fileExists(directory)) {
             error "El directorio '${directory}' no existe."
@@ -33,10 +31,4 @@ dockerBuildDeploy.validateDirectories = { directoryList ->
     }
 }
 
-dockerBuildDeploy.fileExists = { path ->
-    def file = new File(path)
-    return file.exists()
-}
-
-return dockerBuildDeploy
-
+return validateDirectories
