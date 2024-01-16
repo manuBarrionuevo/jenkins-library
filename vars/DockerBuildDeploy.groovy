@@ -1,6 +1,8 @@
 // DockerBuildDeploy.groovy
 
-def buildDockerImage(imageName, version, directory) {
+def dockerBuildDeploy = [:]
+
+dockerBuildDeploy.buildDockerImage = { imageName, version, directory ->
     dir(directory) {
         sh """
             docker build -t $imageName:$version .
@@ -8,13 +10,13 @@ def buildDockerImage(imageName, version, directory) {
     }
 }
 
-def pushDockerImage(imageName, version, directory) {
+dockerBuildDeploy.pushDockerImage = { imageName, version, directory ->
     sh """
         docker push $imageName:$version
     """
 }
 
-def dockerLogin(registryUrl) {
+dockerBuildDeploy.dockerLogin = { registryUrl ->
     withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
         withDockerRegistry([url: registryUrl]) {
             return true
@@ -23,7 +25,7 @@ def dockerLogin(registryUrl) {
     return false
 }
 
-def validateDirectories(directoryList) {
+dockerBuildDeploy.validateDirectories = { directoryList ->
     directoryList.each { directory ->
         if (!fileExists(directory)) {
             error "El directorio '${directory}' no existe."
@@ -31,7 +33,10 @@ def validateDirectories(directoryList) {
     }
 }
 
-def fileExists(path) {
+dockerBuildDeploy.fileExists = { path ->
     def file = new File(path)
     return file.exists()
 }
+
+return dockerBuildDeploy
+
