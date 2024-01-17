@@ -17,14 +17,14 @@ def call() {
         """
     }
 
-    // dockerBuildDeploy.dockerLogin = { registryUrl ->
-    //     withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
-    //         withDockerRegistry([url: registryUrl]) {
-    //             return true
-    //         }
-    //     }
-    //     return false
-    // }
+    dockerBuildDeploy.dockerLogin = { registryUrl ->
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+            withDockerRegistry([url: registryUrl]) {
+                return true
+            }
+        }
+        return false
+    }
 
     dockerBuildDeploy.validateDirectories = { directoryList ->
         directoryList.each { directory ->
