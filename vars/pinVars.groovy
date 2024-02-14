@@ -5,6 +5,7 @@ def call() {
         dir(directory) {
             sh """
                 docker build -t $imageName:$version .
+                docker images
             """
         }
     }
