@@ -15,11 +15,11 @@ def call() {
             docker push $imageName:$version
         """
     }
-    pinVars.dockerLogin = { registryUrl ->
+    pinVars.dockerLogin = { registryUrl, credentialsId ->
         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             echo "Intentando login en Docker Hub con URL: ${registryUrl}"
             try {
-                withDockerRegistry([url: registryUrl]) {
+                withDockerRegistry([url: registryUrl, credentialsId: credentialsId]) {
                     echo 'Inicio de sesión exitoso en Docker Hub'
                     return true
                 }
