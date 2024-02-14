@@ -19,8 +19,7 @@ def call() {
     pinVars.dockerLogin = { registryUrl ->
         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             withDockerRegistry([url: registryUrl]) {
-                echo $DOCKER_USER $DOCKER_PASSWORD
-                return true
+               return true
             }
         }
         return false
