@@ -23,4 +23,6 @@ def call() {
         }
         return false
     }
+
+    return pinVars
 }
