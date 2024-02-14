@@ -21,11 +21,11 @@ def call() {
             try {
                 withDockerRegistry([url: registryUrl]) {
                     echo 'Inicio de sesión exitoso en Docker Hub'
-                    return 'success'
+                    return true
                 }
         } catch (Exception e) {
                 echo "Fallo en el inicio de sesión en Docker Hub: ${e.message}"
-                return 'failure'
+                return false
             }
         }
     }
