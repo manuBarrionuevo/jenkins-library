@@ -1,7 +1,7 @@
 def call() {
     def pinVars = [:]
 
-    pinVars.buildDockerImage = { imageName, version, directory ->
+    pinVars.buildDockerImage = { imageName, version ->
         dir(directory) {
             sh """
                 docker build -t $imageName:$version .
@@ -19,6 +19,7 @@ def call() {
     pinVars.dockerLogin = { registryUrl ->
         withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             withDockerRegistry([url: registryUrl]) {
+                
                return true
             }
         }
