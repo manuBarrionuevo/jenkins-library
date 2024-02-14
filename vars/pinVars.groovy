@@ -16,7 +16,7 @@ def call() {
         """
     }
     pinVars.dockerLogin = { registryUrl, credentialsId ->
-        withCredentials([usernamePassword(credentialsId: 'DockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
+        withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) {
             echo "Intentando login en Docker Hub con URL: ${registryUrl}"
             try {
                 withDockerRegistry([url: registryUrl, credentialsId: credentialsId]) {
