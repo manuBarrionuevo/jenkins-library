@@ -15,7 +15,8 @@ def call() {
             docker push $imageName:$version
         """
     }
-    dockerBuildDeploy.dockerLogin = { registryUrl ->
+
+    pinVars.dockerLogin = { registryUrl ->
         withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) { credentials ->
             env.DOCKER_USER = credentials.username
             env.DOCKER_PASSWORD = credentials.password
