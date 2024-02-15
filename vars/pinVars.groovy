@@ -18,14 +18,18 @@ def call() {
 
     pinVars.dockerLogin = { registryUrl ->
         withCredentials([usernamePassword(credentialsId: 'dockerHub', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASSWORD')]) { credentials ->
-            env.DOCKER_USER = credentials.username
-            env.DOCKER_PASSWORD = credentials.password
+            if (credentials) {
+                env.DOCKER_USER = credentials.username
+                env.DOCKER_PASSWORD = credentials.password
 
-            withDockerRegistry([url: registryUrl]) {
-                return true
+                withDockerRegistry([url: registryUrl]) {
+                    return true
+                }
+            } else {
+                error 'No se pudieron obtener las credenciales de Docker Hub.'
+                return false
             }
         }
-        return false
     }
 
     return pinVars
